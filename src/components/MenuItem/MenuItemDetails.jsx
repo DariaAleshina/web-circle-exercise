@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import Button from "../Button/Button";
+import Button from '../Button/Button';
 
-import styles from "./MenuItem.module.css";
+import styles from './MenuItem.module.css';
 
-
-const MenuItemDetails = () => {
+const MenuItemDetails = ({ wishlist, onToggleWishlist }) => {
   // Hold a temporary value for meal until we fetch the real data. Show a loading message while it's null
   const [meal, setMeal] = useState(null);
   // Hold a boolean value for error in case we run into an error while fetching to give the user feedback and redirect back home
@@ -15,25 +14,28 @@ const MenuItemDetails = () => {
   // Hooks from react-router-dom
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const isInWishlist = wishlist.some(item => item.idMeal === id);
+
   useEffect(() => {
     // Here is another API endpoint from themealdb.com where we can pass an individual ID
     // This is important to be able to load this route from a link by pasting in the direct URL
     // Rather than passing down props, so that someone can access our website directly, e.g. https://oursite.com/meals/52977
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-      .then((r) => r.json())
-      .then((response) => {
+      .then(r => r.json())
+      .then(response => {
         if (response?.meals?.[0]) {
           setMeal(response.meals[0]);
         } else {
-          throw new Error("No results");
+          throw new Error('No results');
         }
       })
-      .catch((e) => {
+      .catch(e => {
         console.error(e);
         setError(true);
         // Show the error for 3 seconds and then redirect back home
         setTimeout(() => {
-          navigate("/");
+          navigate('/');
         }, 3000);
       });
   }, [navigate, id]);
@@ -67,7 +69,12 @@ const MenuItemDetails = () => {
 
   return (
     <div className={styles.menuItemDetail}>
-      <Button onClick={() => navigate("/")}>return Home</Button>
+      <div className={styles.buttonsContainer}>
+        <Button onClick={() => navigate('/')}>return Home</Button>
+        <Button onClick={() => onToggleWishlist(meal)}>
+          {isInWishlist ? 'remove from' : 'add to'} wishlist
+        </Button>
+      </div>
       <h1>{meal.strMeal}</h1>
       <img
         src={meal.strMealThumb}

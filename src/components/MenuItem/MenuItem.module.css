@@ -86,3 +86,8 @@
 .menuItemDetail a:hover {
   text-decoration: underline;
 }
+
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+}
