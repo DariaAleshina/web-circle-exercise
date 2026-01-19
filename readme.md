@@ -80,14 +80,15 @@ Users should be able to add dishes to their wishlist (and remove from it). We ne
 
 ### T - Test
 
-Manually tested all scenarios from Examples section - all passed.
+Manually tested all scenarios from Examples section - fixed bugs where discovered, all passes now.
 
 ### O - Optimize
 
 Potential improvements:
 
+- Show wishlist count badges on "My Wishlist" button / header (IMPLEMENTED)
+- user Contax API to manage state globally for cleaner code especially as more components use same state props
 - Add confirmation dialog before removing from wishlist
-- Show wishlist count badge on "My Wishlist" button
 - Add "Add to Wishlist" button directly on MenuItem cards
 
 ---
