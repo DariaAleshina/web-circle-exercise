@@ -27,3 +27,8 @@
 .focusedBorder {
   border: 1px solid rgb(0, 172, 184);
 }
+
+.spinner {
+  width: 24px;
+  height: 24px;
+}

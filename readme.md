@@ -37,7 +37,7 @@ I did manual testing with examples defined above
 
 Existing code already handles a lot fetching-wise (like debouncing). Potential improvements could be:
 
-- Add loading state to show that search is in progress.
+- Add spinner to show that search is in progress - immediate feedback reassures user their input is being processed (IMPLEMENTED).
 - Add messages in UI for failed API calls.
 
 ## Task 2 - Wishlist

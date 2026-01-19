@@ -11,9 +11,17 @@ import Button from '../components/Button/Button.jsx';
 const RestaurantView = ({ wishlistCount }) => {
   const [dishes, setDishes] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchInProgress, setIsSearchInProgress] = useState(false);
 
   // Hooks from react-router-dom
   const navigate = useNavigate();
+
+  const handleSearchInputChange = input => {
+    // show search in progress
+    setIsSearchInProgress(true);
+    // start search request
+    setSearchQuery(input);
+  };
 
   // useDebouncedCallback takes a function as a parameter and as the second parameter
   // the number of milliseconds it should wait until it is actually called so a user
@@ -21,6 +29,7 @@ const RestaurantView = ({ wishlistCount }) => {
   // This is to optimize user experience and communication with the server
   const debouncedEffectHook = useDebouncedCallback(() => {
     let currentEffect = true;
+
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchQuery}`)
       .then(res => {
         if (!res.ok) {
@@ -41,6 +50,10 @@ const RestaurantView = ({ wishlistCount }) => {
           return;
         }
         setDishes([]);
+      })
+      .finally(() => {
+        // to hide search spinner
+        setIsSearchInProgress(false);
       });
 
     // This cleanup function is to prevent multiple API calls coming back out of sequence and setting the value of our dishes list.
@@ -61,7 +74,11 @@ const RestaurantView = ({ wishlistCount }) => {
   return (
     <>
       <NavBar>
-        <SearchField value={searchQuery} onChange={setSearchQuery} />
+        <SearchField
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          showSpinner={isSearchInProgress}
+        />
         <Button onClick={() => navigate('/wishlist')}>
           My Wishlist ({wishlistCount})
         </Button>
