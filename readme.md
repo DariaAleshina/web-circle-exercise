@@ -35,7 +35,10 @@ I did manual testing with examples defined above
 
 ## O - Optimize
 
-Existing code already handles a lot fetching-wise (like debouncing). Potential improvements could be to add loading state to show that search is in progress or to add messages in UI for failed API calls.
+Existing code already handles a lot fetching-wise (like debouncing). Potential improvements could be:
+
+- Add loading state to show that search is in progress.
+- Add messages in UI for failed API calls.
 
 ## Task 2 - Wishlist
 
