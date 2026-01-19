@@ -14,7 +14,10 @@ const WishlistView = ({ wishlist }) => {
         <Button onClick={() => navigate('/')}>return Home</Button>
       </NavBar>
       <div className={styles.wrapper}>
-        <MenuList dishes={wishlist} placeholder="no dishes found :(" />
+        <MenuList
+          dishes={wishlist}
+          placeholderMessage="no dishes in your wishlist yet"
+        />
       </div>
     </>
   );

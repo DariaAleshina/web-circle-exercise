@@ -68,7 +68,7 @@ const RestaurantView = ({ wishlistCount }) => {
       </NavBar>
 
       <div className={styles.restaurantWrapper}>
-        <MenuList dishes={dishes} placeholder="no dishes found :(" />
+        <MenuList dishes={dishes} placeholderMessage="no dishes found :(" />
       </div>
     </>
   );
