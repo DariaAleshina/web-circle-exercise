@@ -8,7 +8,7 @@ import SearchField from '../components/SearchField/SearchField.jsx';
 import MenuList from '../components/MenuList/MenuList.jsx';
 import Button from '../components/Button/Button.jsx';
 
-const RestaurantView = () => {
+const RestaurantView = ({ wishlistCount }) => {
   const [dishes, setDishes] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -62,7 +62,9 @@ const RestaurantView = () => {
     <>
       <NavBar>
         <SearchField value={searchQuery} onChange={setSearchQuery} />
-        <Button onClick={() => navigate('/wishlist')}>My Wishlist</Button>
+        <Button onClick={() => navigate('/wishlist')}>
+          My Wishlist ({wishlistCount})
+        </Button>
       </NavBar>
 
       <div className={styles.restaurantWrapper}>
