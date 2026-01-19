@@ -10,18 +10,13 @@ import WishlistView from './views/WishlistView.jsx';
 import './App.css';
 
 function App() {
-  // store wishlist (array of dishes IDs)
-  const [wishlist, setWishlist] = useState([]);
-
-  // initialize wishlist from localStorage (on mount only)
-  useEffect(() => {
+  // store wishlist (initialise with existing localStogage data or if none - empty array)
+  const [wishlist, setWishlist] = useState(() => {
     const stored = localStorage.getItem('wishlist');
-    if (stored) {
-      setWishlist(JSON.parse(stored));
-    }
-  }, []);
+    return stored ? JSON.parse(stored) : [];
+  });
 
-  // sync local storage with wishlist changes
+  // sync localStorage with wishlist changes
   useEffect(() => {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
@@ -46,7 +41,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route index element={<RestaurantView />} />
+        <Route
+          index
+          element={<RestaurantView wishlistCount={wishlist.length} />}
+        />
         <Route
           path="/wishlist"
           element={<WishlistView wishlist={wishlist} />}
